@@ -2,30 +2,11 @@
  * Created by Jeremy on 27/08/2016.
  */
 var AnimationController = function() {
-    // store images
-    this.images;
-
-    // set frames per second
-    this.framesPerSecond;
-
-    // set loop repeat
-    this.loopRepeat;
-
-    // record current image
-    this.currentImageIndex;
-
-    // set start image index
-    this.startImageIndex;
-
-    // set animation engine
-    this.animationTimer;
-
-    this.imageLocationBase;
 
     (function (localScope) {
         localScope.images = null;
         localScope.framesPerSecond = 1;
-        localScope.loopRepeat = true;
+        localScope.loopRepeat = false;
         localScope.currentImageIndex = 0;
         localScope.startImageIndex = 0;
         localScope.animationTimer = NaN;
