@@ -11,6 +11,12 @@
 </head>
 <body onload="animationController.getImageIndex()">
 <select id="setStartImageSelector" onchange="animationController.setStartImage(this.value)"></select>
+<label for="startYearSelector">from:</label>
+<select id="startYearSelector" onchange="animationController.setStartYear(this.value)"></select>
+<select id="startMonthSelector" onchange="animationController.setStartMonth(this.value)"></select>
+<label for="endYearSelector">to:</label>
+<select id="endYearSelector" onchange="animationController.setEndYear(this.value)"></select>
+<select id="endMonthSelector" onchange="animationController.setEndMonth(this.value)"></select>
 <button onclick="animationController.startAnimation()">Play</button>
 <button onclick="animationController.pauseAnimation()">Pause</button>
 <button onclick="animationController.stopAnimation()">Stop and Reset</button>
@@ -21,7 +27,7 @@
 <button onclick="animationController.setPlaySpeed(0.2)">8</button>
 <button onclick="animationController.setPlaySpeed(0.1)">10</button>
 <div id="animationHolder">
-    <img id="imageToAnimate" src="resources/images/play-button-icon-png-0.png">
+    <img id="imageToAnimate" src="#">
 </div>
 </body>
 </html>
