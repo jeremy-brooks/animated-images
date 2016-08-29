@@ -13,10 +13,13 @@ var AnimationController = function() {
         localScope.imageLocationBase = "data/";
         localScope.startYear = "";
         localScope.startMonth = "";
+        localScope.startDay = "";
         localScope.endYear = "";
         localScope.endMonth = "";
+        localScope.endDay = "";
         localScope.years = [];
         localScope.months = [];
+        localScope.days = [];
         localScope.startImage = "";
         localScope.isPaused = false;
     })(this);
@@ -42,7 +45,6 @@ var AnimationController = function() {
                     if (localScope.years.indexOf(year) == -1) {
                         localScope.years.push(year);
                         localScope.addOptionToSelector(year, "startYearSelector");
-
                         localScope.addOptionToSelector(year, "endYearSelector");
                     }
                     var month = imageName.substring(4,6);
@@ -50,6 +52,12 @@ var AnimationController = function() {
                         localScope.months.push(month);
                         localScope.addOptionToSelector(month, "startMonthSelector");
                         localScope.addOptionToSelector(month, "endMonthSelector");
+                    }
+                    var day = imageName.substring(6,8);
+                    if (localScope.days.indexOf(day) == -1){
+                        localScope.days.push(day);
+                        localScope.addOptionToSelector(day, "startDaySelector");
+                        localScope.addOptionToSelector(day, "endDaySelector");
                     }
                     if (imageNameIndex == 0){
                         localScope.startImage = localScope.images[localScope.currentImageIndex];
@@ -138,7 +146,23 @@ var AnimationController = function() {
             if (image.substring(0,4) === this.startYear){
                 if (image.substring(4,6) === this.startMonth){
                     this.setStartImage(image);
+                    document.getElementById("startDaySelector").disabled = "";
                     return;
+                }
+            }
+        }
+        document.getElementById("startDaySelector").disabled = "disabled";
+    };
+
+    this.setStartDay = function (value) {
+        this.startDay = value;
+        for (var index = 0, image = ""; image = this.images[index]; index++){
+            if (image.substring(0,4) === this.startYear){
+                if (image.substring(4,6) === this.startMonth){
+                    if (image.substring(6,8) === this.startDay){
+                        this.setStartImage(image);
+                        return;
+                    }
                 }
             }
         }
