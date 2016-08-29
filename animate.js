@@ -1,73 +1,71 @@
 /**
  * Created by Jeremy on 27/08/2016.
  */
-// store images
-var images = null;
+var AnimationController = function() {
+    // store images
+    this.images = null;
 
-// set frames per second
-var framesPerSecond = 1;
+    // set frames per second
+    this.framesPerSecond = 1;
 
-// set loop repeat
-var loopRepeat = true;
+    // set loop repeat
+    this.loopRepeat = true;
 
-// record current image
-var currentImageIndex = 0;
+    // record current image
+    this.currentImageIndex = 0;
 
-// set animation engine
-var animationTimer = null;
+    // set animation engine
+    this.animationTimer = NaN;
 
-// set paused state
-isAnimationPaused = false;
-
-// set images
-getImageIndex = function () {
-    $.ajax({
-        type: "GET",
-        url: "data/dataIndex.txt",
-        dataType: "text",
-        success: function(data) {
-            images = data.split("\n");
-            if (images.length > 0){
-                images.length = images.length-1;
+    // set images
+    this.getImageIndex = function () {
+        var localScope = this;
+        $.ajax({
+            type: "GET",
+            url: "data/dataIndex.txt",
+            dataType: "text",
+            success: function (data) {
+                localScope.images = data.split("\n");
+                if (localScope.images.length > 0) {
+                    localScope.images.length = localScope.images.length - 1;
+                }
+                for (var imageNameIndex = 0, imageName = ""; imageName = localScope.images[imageNameIndex]; imageNameIndex++) {
+                    localScope.images[imageNameIndex] = "data/" + imageName;
+                }
             }
-            for (var imageNameIndex = 0, imageName = ""; imageName = images[imageNameIndex]; imageNameIndex++){
-                images[imageNameIndex] = "data/" + imageName;
-            }
+        });
+    };
+
+    // pause animation
+    this.pauseAnimation = function () {
+        if (this.animationTimer) {
+            clearInterval(this.animationTimer);
         }
-    });
-};
+    };
 
-// pause animation
-pauseAnimation = function(){
-    if (animationTimer){
-        clearInterval(animationTimer);
-        isAnimationPaused = true;
-    }
-};
-
-// stop animation
-stopAnimation = function () {
-    if (animationTimer){
-        clearInterval(animationTimer);
-        currentImageIndex = 0;
-        document.getElementById("imageToAnimate").src = images[currentImageIndex];
-        document.getElementById("frameName").innerHTML = "Current image: " + images[currentImageIndex];
-    }
-};
-
-// start animation
-startAnimation = function () {
-    // set image engine
-    animationTimer = setInterval(function () {
-        document.getElementById("imageToAnimate").src = images[currentImageIndex];
-        document.getElementById("frameName").innerHTML = "Current image: " + images[currentImageIndex];
-        currentImageIndex++;
-        if (currentImageIndex == images.length){
-            if (loopRepeat){
-                currentImageIndex = 0;
-                return;
-            }
-            stopAnimation();
+    // stop animation
+    this.stopAnimation = function () {
+        if (this.animationTimer) {
+            clearInterval(this.animationTimer);
+            this.currentImageIndex = 0;
+            document.getElementById("imageToAnimate").src = this.images[this.currentImageIndex];
         }
-    }, framesPerSecond * 1000);
+    };
+
+    // start animation
+    this.startAnimation = function () {
+        // set image engine
+        var localScope = this;
+        localScope.animationTimer = setInterval(function () {
+            document.getElementById("imageToAnimate").src = localScope.images[localScope.currentImageIndex];
+            localScope.currentImageIndex++;
+            if (localScope.currentImageIndex == localScope.images.length) {
+                if (localScope.loopRepeat) {
+                    localScope.currentImageIndex = 0;
+                    return;
+                }
+                localScope.stopAnimation();
+            }
+        }, localScope.framesPerSecond * 1000);
+    }
 };
