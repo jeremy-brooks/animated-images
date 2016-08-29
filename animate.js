@@ -17,6 +17,8 @@ var AnimationController = function() {
     // set animation engine
     this.animationTimer = NaN;
 
+    this.imageLocationBase = "data/";
+
     // set images
     this.getImageIndex = function () {
         var localScope = this;
@@ -30,12 +32,19 @@ var AnimationController = function() {
                     localScope.images.length = localScope.images.length - 1;
                 }
                 for (var imageNameIndex = 0, imageName = ""; imageName = localScope.images[imageNameIndex]; imageNameIndex++) {
-                    localScope.images[imageNameIndex] = "data/" + imageName;
+                    var fullImageLocation = localScope.imageLocationBase + imageName;
+                    localScope.images[imageNameIndex] = fullImageLocation;
+                    localScope.addOptionToStartImageSelector(imageName);
                 }
             }
         });
     };
 
+    this.addOptionToStartImageSelector = function (fileName) {
+        var newOption = new Option(fileName, fileName);
+        document.getElementById("setStartImageSelector").appendChild(newOption);
+    };
+    
     // pause animation
     this.pauseAnimation = function () {
         if (this.animationTimer) {
@@ -72,6 +81,12 @@ var AnimationController = function() {
     this.setPlaySpeed = function (speed) {
         this.pauseAnimation();
         this.framesPerSecond = speed;
+        this.startAnimation();
+    };
+    
+    this.setStartImage = function (value) {
+        this.stopAnimation();
+        this.currentImageIndex = this.images.indexOf(this.imageLocationBase + value);
         this.startAnimation();
     }
 };

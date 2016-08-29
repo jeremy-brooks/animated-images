@@ -10,6 +10,7 @@
     </script>
 </head>
 <body onload="animationController.getImageIndex()">
+<select id="setStartImageSelector" onchange="animationController.setStartImage(this.value)"></select>
 <button onclick="animationController.startAnimation()">Play</button>
 <button onclick="animationController.pauseAnimation()">Pause</button>
 <button onclick="animationController.stopAnimation()">Stop and Reset</button>
