@@ -13,10 +13,10 @@
 <select id="setStartImageSelector" onchange="animationController.setStartImage(this.value)"></select>
 <label for="startYearSelector">from:</label>
 <select id="startYearSelector" onchange="animationController.setStartYear(this.value)"></select>
-<select id="startMonthSelector" onchange="animationController.setStartMonth(this.value)"></select>
+<select id="startMonthSelector" onchange="animationController.setStartMonth(this.value)" disabled="disabled"></select>
 <label for="endYearSelector">to:</label>
 <select id="endYearSelector" onchange="animationController.setEndYear(this.value)"></select>
-<select id="endMonthSelector" onchange="animationController.setEndMonth(this.value)"></select>
+<select id="endMonthSelector" onchange="animationController.setEndMonth(this.value)" disabled="disabled"></select>
 <button onclick="animationController.startAnimation()">Play</button>
 <button onclick="animationController.pauseAnimation()">Pause</button>
 <button onclick="animationController.stopAnimation()">Stop and Reset</button>

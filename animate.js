@@ -34,12 +34,13 @@ var AnimationController = function() {
                     localScope.images.length = localScope.images.length - 1;
                 }
                 for (var imageNameIndex = 0, imageName = ""; imageName = localScope.images[imageNameIndex]; imageNameIndex++) {
-                    localScope.images[imageNameIndex] = localScope.imageLocationBase + imageName;
+                    localScope.images[imageNameIndex] = imageName;
                     localScope.addOptionToSelector(imageName, "setStartImageSelector");
                     var year = imageName.substring(0,4);
                     if (localScope.years.indexOf(year) == -1) {
                         localScope.years.push(year);
                         localScope.addOptionToSelector(year, "startYearSelector");
+
                         localScope.addOptionToSelector(year, "endYearSelector");
                     }
                     var month = imageName.substring(4,6);
@@ -49,7 +50,7 @@ var AnimationController = function() {
                         localScope.addOptionToSelector(month, "endMonthSelector");
                     }
                     if (imageNameIndex == 0){
-                        document.getElementById("imageToAnimate").src = localScope.images[localScope.currentImageIndex];
+                        localScope.setCurrentImage(localScope.images[localScope.currentImageIndex]);
                     }
                 }
             }
@@ -73,7 +74,7 @@ var AnimationController = function() {
         if (this.animationTimer) {
             clearInterval(this.animationTimer);
             this.currentImageIndex = 0;
-            document.getElementById("imageToAnimate").src = this.images[this.currentImageIndex];
+            this.setCurrentImage(this.images[this.currentImageIndex]);
         }
     };
 
@@ -82,16 +83,21 @@ var AnimationController = function() {
         // set image engine
         var localScope = this;
         localScope.animationTimer = setInterval(function () {
-            document.getElementById("imageToAnimate").src = localScope.images[localScope.currentImageIndex];
+            localScope.setCurrentImage(localScope.images[localScope.currentImageIndex]);
             localScope.currentImageIndex++;
             if (localScope.currentImageIndex == localScope.images.length) {
                 if (localScope.loopRepeat) {
                     localScope.currentImageIndex = 0;
                     return;
                 }
-                localScope.stopAnimation();
+                localScope.pauseAnimation();
             }
         }, localScope.framesPerSecond * 1000);
+    };
+
+    this.setCurrentImage = function (imageName) {
+        this.currentImageIndex = this.images.indexOf(imageName);
+        document.getElementById("imageToAnimate").src = this.imageLocationBase + imageName;
     };
     
     this.setPlaySpeed = function (speed) {
@@ -102,17 +108,29 @@ var AnimationController = function() {
     
     this.setStartImage = function (value) {
         this.stopAnimation();
-        this.startImageIndex = this.images.indexOf(this.imageLocationBase + value);
-        this.currentImageIndex = this.startImageIndex;
-        this.startAnimation();
+        this.setCurrentImage(value);
     };
 
     this.setStartYear = function (value) {
         this.startYear = value;
+        for (var index = 0, image = ""; image = this.images[index]; index++){
+            if (image.substring(0,4) === this.startYear){
+                this.setStartImage(image);
+                document.getElementById("startMonthSelector").disabled = "";
+                return;
+            }
+        }
+        document.getElementById("startMonthSelector").disabled = "disabled";
     };
 
     this.setStartMonth = function (value) {
         this.startMonth = value;
+        for (var index = 0, image = ""; image = this.images[index]; index++){
+            if (image.substring(5,6) === this.startMonth){
+                this.setStartImage(image);
+                return;
+            }
+        }
     };
 
     this.setEndYear = function (value) {
