@@ -3,21 +3,34 @@
  */
 var AnimationController = function() {
     // store images
-    this.images = null;
+    this.images;
 
     // set frames per second
-    this.framesPerSecond = 1;
+    this.framesPerSecond;
 
     // set loop repeat
-    this.loopRepeat = true;
+    this.loopRepeat;
 
     // record current image
-    this.currentImageIndex = 0;
+    this.currentImageIndex;
+
+    // set start image index
+    this.startImageIndex;
 
     // set animation engine
-    this.animationTimer = NaN;
+    this.animationTimer;
 
-    this.imageLocationBase = "data/";
+    this.imageLocationBase;
+
+    (function (localScope) {
+        localScope.images = null;
+        localScope.framesPerSecond = 1;
+        localScope.loopRepeat = true;
+        localScope.currentImageIndex = 0;
+        localScope.startImageIndex = 0;
+        localScope.animationTimer = NaN;
+        localScope.imageLocationBase = "data/";
+    })(this);
 
     // set images
     this.getImageIndex = function () {
@@ -32,8 +45,7 @@ var AnimationController = function() {
                     localScope.images.length = localScope.images.length - 1;
                 }
                 for (var imageNameIndex = 0, imageName = ""; imageName = localScope.images[imageNameIndex]; imageNameIndex++) {
-                    var fullImageLocation = localScope.imageLocationBase + imageName;
-                    localScope.images[imageNameIndex] = fullImageLocation;
+                    localScope.images[imageNameIndex] = localScope.imageLocationBase + imageName;
                     localScope.addOptionToStartImageSelector(imageName);
                 }
             }
@@ -86,7 +98,8 @@ var AnimationController = function() {
     
     this.setStartImage = function (value) {
         this.stopAnimation();
-        this.currentImageIndex = this.images.indexOf(this.imageLocationBase + value);
+        this.startImageIndex = this.images.indexOf(this.imageLocationBase + value);
+        this.currentImageIndex = this.startImageIndex;
         this.startAnimation();
     }
 };
