@@ -1,61 +1,105 @@
 /**
  * Created by Jeremy on 27/08/2016.
  */
-// store images
-var images = [
-    "data/1.png",
-    "data/2.png",
-    "data/3.png",
-    "data/4.png",
-    "data/5.png"
-];
+var AnimationController = function() {
+    // store images
+    this.images;
 
-// set frames per second
-var framesPerSecond = 1;
+    // set frames per second
+    this.framesPerSecond;
 
-// set loop repeat
-var loopRepeat = true;
+    // set loop repeat
+    this.loopRepeat;
 
-// record current image
-var currentImageIndex = 0;
+    // record current image
+    this.currentImageIndex;
 
-// set animation engine
-var animationTimer = null;
+    // set start image index
+    this.startImageIndex;
 
-// set paused state
-isAnimationPaused = false;
+    // set animation engine
+    this.animationTimer;
 
-// pause animation
-pauseAnimation = function(){
-    if (animationTimer){
-        clearInterval(animationTimer);
-        isAnimationPaused = true;
-    }
-};
+    this.imageLocationBase;
 
-// stop animation
-stopAnimation = function () {
-    if (animationTimer){
-        clearInterval(animationTimer);
-        currentImageIndex = 0;
-        document.getElementById("imageToAnimate").src = "data/play-button-icon-png-0.png";
-        document.getElementById("frameName").innerHTML = "";
-    }
-};
+    (function (localScope) {
+        localScope.images = null;
+        localScope.framesPerSecond = 1;
+        localScope.loopRepeat = true;
+        localScope.currentImageIndex = 0;
+        localScope.startImageIndex = 0;
+        localScope.animationTimer = NaN;
+        localScope.imageLocationBase = "data/";
+    })(this);
 
-// start animation
-startAnimation = function () {
-    // set image engine
-    animationTimer = setInterval(function (a, b) {
-        document.getElementById("imageToAnimate").src = images[currentImageIndex];
-        document.getElementById("frameName").innerHTML = "Playing: " + images[currentImageIndex];
-        currentImageIndex++;
-        if (currentImageIndex == images.length){
-            if (loopRepeat){
-                currentImageIndex = 0;
-                return;
+    // set images
+    this.getImageIndex = function () {
+        var localScope = this;
+        $.ajax({
+            type: "GET",
+            url: "data/dataIndex.txt",
+            dataType: "text",
+            success: function (data) {
+                localScope.images = data.split("\n");
+                if (localScope.images.length > 0) {
+                    localScope.images.length = localScope.images.length - 1;
+                }
+                for (var imageNameIndex = 0, imageName = ""; imageName = localScope.images[imageNameIndex]; imageNameIndex++) {
+                    localScope.images[imageNameIndex] = localScope.imageLocationBase + imageName;
+                    localScope.addOptionToStartImageSelector(imageName);
+                }
             }
-            stopAnimation();
+        });
+    };
+
+    this.addOptionToStartImageSelector = function (fileName) {
+        var newOption = new Option(fileName, fileName);
+        document.getElementById("setStartImageSelector").appendChild(newOption);
+    };
+    
+    // pause animation
+    this.pauseAnimation = function () {
+        if (this.animationTimer) {
+            clearInterval(this.animationTimer);
         }
-    }, framesPerSecond * 1000);
+    };
+
+    // stop animation
+    this.stopAnimation = function () {
+        if (this.animationTimer) {
+            clearInterval(this.animationTimer);
+            this.currentImageIndex = 0;
+            document.getElementById("imageToAnimate").src = this.images[this.currentImageIndex];
+        }
+    };
+
+    // start animation
+    this.startAnimation = function () {
+        // set image engine
+        var localScope = this;
+        localScope.animationTimer = setInterval(function () {
+            document.getElementById("imageToAnimate").src = localScope.images[localScope.currentImageIndex];
+            localScope.currentImageIndex++;
+            if (localScope.currentImageIndex == localScope.images.length) {
+                if (localScope.loopRepeat) {
+                    localScope.currentImageIndex = 0;
+                    return;
+                }
+                localScope.stopAnimation();
+            }
+        }, localScope.framesPerSecond * 1000);
+    };
+    
+    this.setPlaySpeed = function (speed) {
+        this.pauseAnimation();
+        this.framesPerSecond = speed;
+        this.startAnimation();
+    };
+    
+    this.setStartImage = function (value) {
+        this.stopAnimation();
+        this.startImageIndex = this.images.indexOf(this.imageLocationBase + value);
+        this.currentImageIndex = this.startImageIndex;
+        this.startAnimation();
+    }
 };
