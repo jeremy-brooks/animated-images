@@ -17,6 +17,8 @@ var AnimationController = function() {
         localScope.endMonth = "";
         localScope.years = [];
         localScope.months = [];
+        localScope.startImage = "";
+        localScope.isPaused = false;
     })(this);
 
     // set images
@@ -50,7 +52,8 @@ var AnimationController = function() {
                         localScope.addOptionToSelector(month, "endMonthSelector");
                     }
                     if (imageNameIndex == 0){
-                        localScope.setCurrentImage(localScope.images[localScope.currentImageIndex]);
+                        localScope.startImage = localScope.images[localScope.currentImageIndex];
+                        localScope.setCurrentImage(localScope.startImage);
                     }
                 }
             }
@@ -66,6 +69,7 @@ var AnimationController = function() {
     this.pauseAnimation = function () {
         if (this.animationTimer) {
             clearInterval(this.animationTimer);
+            this.isPaused = true;
         }
     };
 
@@ -74,7 +78,8 @@ var AnimationController = function() {
         if (this.animationTimer) {
             clearInterval(this.animationTimer);
             this.currentImageIndex = 0;
-            this.setCurrentImage(this.images[this.currentImageIndex]);
+            this.startImage = this.images[this.currentImageIndex];
+            this.setCurrentImage(this.startImage);
         }
     };
 
@@ -82,6 +87,9 @@ var AnimationController = function() {
     this.startAnimation = function () {
         // set image engine
         var localScope = this;
+        if (localScope.startImage && !localScope.isPaused){
+            localScope.currentImageIndex = localScope.images.indexOf(localScope.startImage);
+        }
         localScope.animationTimer = setInterval(function () {
             localScope.setCurrentImage(localScope.images[localScope.currentImageIndex]);
             localScope.currentImageIndex++;
@@ -108,6 +116,7 @@ var AnimationController = function() {
     
     this.setStartImage = function (value) {
         this.stopAnimation();
+        this.startImage = value;
         this.setCurrentImage(value);
     };
 
@@ -126,9 +135,11 @@ var AnimationController = function() {
     this.setStartMonth = function (value) {
         this.startMonth = value;
         for (var index = 0, image = ""; image = this.images[index]; index++){
-            if (image.substring(5,6) === this.startMonth){
-                this.setStartImage(image);
-                return;
+            if (image.substring(0,4) === this.startYear){
+                if (image.substring(4,6) === this.startMonth){
+                    this.setStartImage(image);
+                    return;
+                }
             }
         }
     };
