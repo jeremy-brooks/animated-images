@@ -67,5 +67,11 @@ var AnimationController = function() {
                 localScope.stopAnimation();
             }
         }, localScope.framesPerSecond * 1000);
+    };
+    
+    this.setPlaySpeed = function (speed) {
+        this.pauseAnimation();
+        this.framesPerSecond = speed;
+        this.startAnimation();
     }
 };

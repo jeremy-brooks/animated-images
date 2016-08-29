@@ -13,6 +13,12 @@
 <button onclick="animationController.startAnimation()">Play</button>
 <button onclick="animationController.pauseAnimation()">Pause</button>
 <button onclick="animationController.stopAnimation()">Stop and Reset</button>
+<p>Speed (images per second)</p>
+<button onclick="animationController.setPlaySpeed(0.1)">10</button>
+<button onclick="animationController.setPlaySpeed(0.2)">8</button>
+<button onclick="animationController.setPlaySpeed(0.5)">5</button>
+<button onclick="animationController.setPlaySpeed(0.8)">2</button>
+<button onclick="animationController.setPlaySpeed(1)">1</button>
 <div id="animationHolder">
     <img id="imageToAnimate" src="resources/images/play-button-icon-png-0.png">
 </div>
