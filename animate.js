@@ -22,6 +22,17 @@ var currentImageIndex = 0;
 // set animation engine
 var animationTimer = null;
 
+// set paused state
+isAnimationPaused = false;
+
+// pause animation
+pauseAnimation = function(){
+    if (animationTimer){
+        clearInterval(animationTimer);
+        isAnimationPaused = true;
+    }
+};
+
 // stop animation
 stopAnimation = function () {
     if (animationTimer){
