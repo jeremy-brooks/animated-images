@@ -1,6 +1,3 @@
-/**
- * Created by Jeremy on 27/08/2016.
- */
 var AnimationController = function() {
 
     (function (localScope) {
@@ -19,6 +16,7 @@ var AnimationController = function() {
         localScope.days = [];
         localScope.startImage = "";
         localScope.isPaused = false;
+        localScope.imageModel = new Images();
     })(this);
 
     // set images
@@ -32,11 +30,16 @@ var AnimationController = function() {
                 localScope.images = data.split("\n");
                 localScope.years.length = 0;
                 localScope.months.length = 0;
+                localScope.imageModel.clear();
                 if (localScope.images.length > 0) {
                     localScope.images.length = localScope.images.length - 1;
                 }
                 for (var imageNameIndex = 0, imageName = ""; imageName = localScope.images[imageNameIndex]; imageNameIndex++) {
                     localScope.images[imageNameIndex] = imageName;
+                    var image = new Image();
+                    image.createMeFromImageName(imageName);
+                    localScope.imageModel.addImage(image);
+
                     var year = imageName.substring(0,4);
                     if (localScope.years.indexOf(year) == -1) {
                         localScope.years.push(year);
