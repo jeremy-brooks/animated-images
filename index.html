@@ -10,26 +10,23 @@
     </script>
 </head>
 <body onload="animationController.getImageIndex()">
-<select id="setStartImageSelector" onchange="animationController.setStartImage(this.value)"></select>
+<div id="header">
+    <label for="startYearSelector">from:</label>
+    <select id="startYearSelector" onchange="animationController.setStartYear(this.value)"></select>
+    <select id="startMonthSelector" onchange="animationController.setStartMonth(this.value)"
+            disabled="disabled"></select>
+    <select id="startDaySelector" onchange="animationController.setStartDay(this.value)" disabled="disabled"></select>
 
-<label for="startYearSelector">from:</label>
-<select id="startYearSelector" onchange="animationController.setStartYear(this.value)"></select>
-<select id="startMonthSelector" onchange="animationController.setStartMonth(this.value)" disabled="disabled"></select>
-<select id="startDaySelector" onchange="animationController.setStartDay(this.value)" disabled="disabled"></select>
-<label for="endYearSelector">to:</label>
-<select id="endYearSelector" onchange="animationController.setEndYear(this.value)"></select>
-<select id="endMonthSelector" onchange="animationController.setEndMonth(this.value)" disabled="disabled"></select>
-<select id="endDaySelector" onchange="animationController.setEndDay(this.value)" disabled="disabled"></select>
-
-<button onclick="animationController.startAnimation()">Play</button>
-<button onclick="animationController.pauseAnimation()">Pause</button>
-<button onclick="animationController.stopAnimation()">Stop and Reset</button>
-<p>Speed (images per second)</p>
-<button onclick="animationController.setPlaySpeed(1)">1</button>
-<button onclick="animationController.setPlaySpeed(0.8)">2</button>
-<button onclick="animationController.setPlaySpeed(0.5)">5</button>
-<button onclick="animationController.setPlaySpeed(0.2)">8</button>
-<button onclick="animationController.setPlaySpeed(0.1)">10</button>
+    <button onclick="animationController.startAnimation()">Play</button>
+    <button onclick="animationController.pauseAnimation()">Pause</button>
+    <button onclick="animationController.stopAndResetAnimation()">Stop and Reset</button>
+    <p>Speed (images per second)</p>
+    <button onclick="animationController.setPlaySpeed(1)">1</button>
+    <button onclick="animationController.setPlaySpeed(0.8)">2</button>
+    <button onclick="animationController.setPlaySpeed(0.5)">5</button>
+    <button onclick="animationController.setPlaySpeed(0.2)">8</button>
+    <button onclick="animationController.setPlaySpeed(0.1)">10</button>
+</div>
 <div id="animationHolder">
     <img id="imageToAnimate" src="#">
 </div>
