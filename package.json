@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/jeremy-brooks/animated-images#readme",
   "dependencies": {
-    "jquery": "^3.1.0"
+    "bootstrap": "^3.3.7",
+    "html5shiv": "^3.7.3",
+    "jquery": "^1.12.4"
   }
 }
