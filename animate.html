@@ -14,8 +14,15 @@
     <script src="node_modules/html5shiv/dist/html5shiv.min.js" crossorigin="anonymous"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" crossorigin="anonymous"></script>
     <![endif]-->
+
+    <script src="src/animate/animationController.js" crossorigin="anonymous"></script>
+    <script>
+        function boostrapViewsToControllers() {
+            new AnimationController("#imageCarousel");
+        }
+    </script>
 </head>
-<body>
+<body onload="boostrapViewsToControllers()">
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
@@ -67,13 +74,34 @@
 
 <div class="container-fluid">
 
-    <div id="carousel-example-generic" class="carousel"
+    <div id="imageCarousel" class="carousel"
          data-ride="carousel"
          data-interval="500">
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
+                <img class="img-responsive center-block" src="data/19790104_t7.png" alt="...">
+            </div>
+            <div class="item">
+                <img class="img-responsive center-block" src="data/19790101_t7.png" alt="...">
+            </div>
+            <div class="item">
+                <img class="img-responsive center-block" src="data/19790102_t7.png" alt="...">
+            </div>
+            <div class="item">
+                <img class="img-responsive center-block" src="data/19790103_t7.png" alt="...">
+            </div>
+            <div class="item">
+                <img class="img-responsive center-block" src="data/19790101_t7.png" alt="...">
+            </div>
+            <div class="item">
+                <img class="img-responsive center-block" src="data/19790102_t7.png" alt="...">
+            </div>
+            <div class="item">
+                <img class="img-responsive center-block" src="data/19790103_t7.png" alt="...">
+            </div>
+            <div class="item">
                 <img class="img-responsive center-block" src="data/19790101_t7.png" alt="...">
             </div>
             <div class="item">
