@@ -2,20 +2,18 @@ var DateRange = function () {
     var startDate;
     var endDate;
 
-    this.START_DATE_CHANGED_EVENT = "startDateChangedEvent";
-    this.END_DATE_CHANGED_EVENT = "endDateChnagedEvent";
-
     this.setStartDate = function (value) {
         startDate = value;
-        this.dispatchEvent(new CustomEvent(this.START_DATE_CHANGED_EVENT, {
-            startDate: this.getStartDate()
-        }));
+        dispatchEvent(new CustomEvent(ai.observable.DATE_RANGE_DATA_CHANGED_EVENT, {
+            'detail': this.valueOf()
+        }))
+        ;
     };
 
     this.setEndDate = function (value) {
         endDate = value;
-        this.dispatchEvent(new CustomEvent(this.END_DATE_CHANGED_EVENT, {
-            startDate: this.getEndDate()
+        dispatchEvent(new CustomEvent(ai.observable.DATE_RANGE_DATA_CHANGED_EVENT, {
+            'detail': this.valueOf()
         }));
     };
 
@@ -26,6 +24,11 @@ var DateRange = function () {
     this.getEndDate = function () {
         return endDate;
     };
+
+    this.valueOf = function () {
+        return {
+            "startDate": this.getStartDate(),
+            "endDate": this.getEndDate()
+        }
+    }
 };
-DateRange.prototype = Object.create(CommonEventTarget.prototype);
-DateRange.prototype.constructor = DateRange;
