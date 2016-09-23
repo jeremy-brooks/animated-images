@@ -27,3 +27,5 @@ var DateRange = function () {
         return endDate;
     };
 };
+DateRange.prototype = Object.create(CommonEventTarget.prototype);
+DateRange.prototype.constructor = DateRange;

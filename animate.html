@@ -15,10 +15,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" crossorigin="anonymous"></script>
     <![endif]-->
 
+    <script src="src/common/events/CommonEventTarget.js" crossorigin="anonymous"></script>
+    <script src="src/animate/dateRange.js" crossorigin="anonymous"></script>
     <script src="src/animate/animationController.js" crossorigin="anonymous"></script>
     <script>
         function boostrapViewsToControllers() {
-            new AnimationController("#imageCarousel");
+            new AnimationController("#imageCarousel", new DateRange());
         }
     </script>
 </head>
