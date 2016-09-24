@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>New data flow</title>
 
+    <link rel="stylesheet" href="node_modules/jquery-ui-dist/jquery-ui.css">
+    <!--<link rel="stylesheet" href="node_modules/jquery-ui-dist/jquery-ui.theme.css" crossorigin="anonymous">-->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous">
-
-    <!-- Optional theme -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.css" crossorigin="anonymous">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -24,6 +24,8 @@
         function boostrapViewsToControllers() {
             ai.model.dateRange = new DateRange();
             new MvcBootstrapper(new AnimationController("#imageCarousel"));
+            $("#startDatePicker").datepicker();
+            $("#endDatePicker").datepicker();
         }
     </script>
 </head>
@@ -42,33 +44,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Start date <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">End date <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Start date: <input type="text" id="startDatePicker"></a></li>
+                <li><a href="#">End date: <input type="text" id="endDatePicker"></a></li>
                 <li><a href="#">Play</a></li>
                 <li><a href="#">Pause</a></li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">placeholder</a></li>
@@ -135,6 +114,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- jquery dependency -->
 <script src="node_modules/jquery/dist/jquery.js" crossorigin="anonymous"></script>
+<script src="node_modules/jquery-ui-dist/jquery-ui.js" crossorigin="anonymous"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 </body>
