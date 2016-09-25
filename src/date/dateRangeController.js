@@ -1,17 +1,16 @@
 var DateRangeController = function (startDatePicker, endDatePicker) {
-
-    function onCloseHandler(data, target) {
-        if (target.id === startDatePicker.attr("id")){
-            ai.model.dateRange.setStartDate(data);
-        } else {
-            ai.model.dateRange.setEndDate(data);
-        }
-    }
-    
     startDatePicker.datepicker({
-        onClose: onCloseHandler
+        onClose: function (startDate) {
+            dispatchEvent(new CustomEvent(ai.observable.NEW_START_DATE_SELECTED_EVENT, {
+                "detail": startDate
+            }));
+        }
     });
     endDatePicker.datepicker({
-        onClose: onCloseHandler
+        onClose: function (endDate) {
+            dispatchEvent(new CustomEvent(ai.observable.NEW_END_DATE_SELECTED_EVENT, {
+                "detail": endDate
+            }));
+        }
     });
 };
