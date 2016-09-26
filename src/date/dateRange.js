@@ -3,24 +3,28 @@ var DateRange = function () {
     var endDate;
 
     (function (scope) {
-        addEventListener(ai.observable.NEW_START_DATE_SELECTED_EVENT, scope.setStartDate);
-        addEventListener(ai.observable.NEW_END_DATE_SELECTED_EVENT, scope.setEndDate);
+        addEventListener(ai.observable.NEW_START_DATE_SELECTED_EVENT, function(data){
+            scope.setStartDate(data.detail)
+        });
+        addEventListener(ai.observable.NEW_END_DATE_SELECTED_EVENT, function(data){
+            scope.setEndDate(data.detail)
+        });
     })(this);
     
-    function notify() {
+    this.notify = function () {
         dispatchEvent(new CustomEvent(ai.observable.DATE_RANGE_DATA_CHANGED_EVENT, {
             'detail': this.valueOf()
         }));
-    }
+    };
     
     this.setStartDate = function (value) {
         startDate = value;
-        notify();
+        this.notify();
     };
 
     this.setEndDate = function (value) {
         endDate = value;
-        notify();
+        this.notify();
     };
 
     this.getStartDate = function () {
