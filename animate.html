@@ -18,14 +18,17 @@
     <script src="src/animationNamespace.js" crossorigin="anonymous"></script>
     <script src="src/common/events/observables.js" crossorigin="anonymous"></script>
     <script src="src/date/dateRange.js" crossorigin="anonymous"></script>
-    <script src="src/mvcBootstrapper.js" crossorigin="anonymous"></script>
+    <script src="src/mvcsBootstrapper.js" crossorigin="anonymous"></script>
     <script src="src/animate/animationController.js" crossorigin="anonymous"></script>
     <script src="src/date/dateRangeController.js" crossorigin="anonymous"></script>
     <script>
         function boostrapViewsToControllers() {
             ai.model.dateRange = new DateRange();
-            new MvcBootstrapper(new AnimationController($("#imageCarousel")));
-            new MvcBootstrapper(new DateRangeController($("#startDatePicker"), $("#endDatePicker")));
+            var images = new Images();
+            var dateRangeController = new DateRangeController($("#startDatePicker"), $("#endDatePicker"));
+            var animationController = new AnimationController($("#imageCarousel"));
+            var imageService = new ImageService();
+            new MvcsBootstrapper(images, animationController, imageService);
         }
     </script>
 </head>
