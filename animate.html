@@ -25,7 +25,7 @@
     <script src="src/data/imageService.js" crossorigin="anonymous"></script>
     <script src="src/data/images.js" crossorigin="anonymous"></script>
     <script>
-        function boostrapViewsToControllers() {
+        function bootstrapApplication() {
             ai.model.dateRange = new DateRange();
             var dateRangeController = new DateRangeController($("#startDatePicker"), $("#endDatePicker"));
             var animationController = new AnimationController($("#imageCarousel"));
@@ -33,7 +33,7 @@
         }
     </script>
 </head>
-<body onload="boostrapViewsToControllers()">
+<body onload="bootstrapApplication()">
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
