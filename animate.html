@@ -27,6 +27,7 @@
     <script>
         function bootstrapApplication() {
             ai.model.dateRange = new DateRange();
+            //ai.model.imageMetaData =
             var dateRangeController = new DateRangeController($("#startDatePicker"), $("#endDatePicker"));
             var animationController = new AnimationController($("#imageCarousel"));
             var imageService = new ImageService();
