@@ -3,22 +3,31 @@ var AnimationController = function (view) {
     this.animationView = $(view);
     this.viewId = this.animationView.attr("id");
     this.images = $("#" + this.viewId + " .item img");
+    this.imageContainer = $("#carouselItems");
+    this.itemTemplate =
+        '<div class="item">' +
+            '<img class="img-responsive center-block" src="{imageSrc}" alt="{altText}">' +
+        '</div>';
 
     this.setImagesInCarousel = function (currentImages, nextImages) {
-        this.clearALlImages(this.images);
+        this.animationView.carousel("pause");
+        this.clearImages();
         for (var imageIndex = 0, image; image = currentImages[imageIndex]; imageIndex++){
-            $(this.images[imageIndex]).attr("src", image.uri);
+            var newItem = this.itemTemplate.replace("{imageSrc}", image.uri).replace("{altText}", image.date);
+            if (imageIndex === 0){
+                newItem = $(newItem).addClass("active");
+            }
+            $(this.imageContainer).append($(newItem));
         }
+        this.animationView.carousel("cycle");
     };
 
-    this.clearALlImages = function (images) {
-        for (var imageIndex = 0, image; image = images[imageIndex]; imageIndex++){
-            $(image).attr("src", "");
-        }
+    this.clearImages = function (images) {
+        $(this.imageContainer).empty();
     };
 
     (function(scope){
-        scope.clearALlImages(scope.images);
+        scope.clearImages();
         addEventListener(ai.observable.IMAGE_SET_CHANGED, function (event) {
             scope.setImagesInCarousel(event.detail.currentImages, event.detail.nextImages);
         });
