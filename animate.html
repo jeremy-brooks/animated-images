@@ -23,8 +23,7 @@
     <script src="src/animate/animationController.js" crossorigin="anonymous"></script>
     <script src="src/date/dateRangeController.js" crossorigin="anonymous"></script>
     <script src="src/data/imageService.js" crossorigin="anonymous"></script>
-    <script src="src/data/images.js" crossorigin="anonymous"></script>
-    <script src="src/data/imageMetaDataService.js" crossorigin="anonymous"></script>
+    <script src="src/data/image.js" crossorigin="anonymous"></script>
     <script>
         function bootstrapApplication() {
             ai.model.dateRange = new DateRange();
@@ -32,7 +31,6 @@
             var dateRangeController = new DateRangeController($("#startDatePicker"), $("#endDatePicker"));
             var animationController = new AnimationController($("#imageCarousel"));
             var imageService = new ImageService();
-            var imageMetaDataService = new ImageMetaDataService();
         }
     </script>
 </head>
